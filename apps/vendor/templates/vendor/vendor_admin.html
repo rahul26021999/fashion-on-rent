@@ -1,10 +1,10 @@
 {% extends 'core/base.html' %}
 
-{% block title %}Vendor admin | {% endblock %}
+{% block title %}Renter Dashboard | {% endblock %}
 
 {% block content %}
     <div class="box">
-        <h1 class="title">Vendor admin - {{ vendor.name }}</h1>
+        <h1 class="title">Renter - {{ vendor.name }}</h1>
 
         <strong>My balance: </strong>${{ vendor.get_balance }}<br>
         <strong>My paid amount: </strong>${{ vendor.get_paid_amount }}
@@ -44,7 +44,7 @@
     </div>
 
     <div class="box">
-        <h2 class="is-size-3 mb-4">My orders</h2>
+        <h2 class="is-size-3 mb-4">Order Received</h2>
     
         {% if orders %}
             {% for order in orders %}

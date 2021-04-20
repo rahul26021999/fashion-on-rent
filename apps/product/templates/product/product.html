@@ -10,8 +10,14 @@
     {% endif %}
 
     <h1 class="title">{{ product.title }}, ${{ product.price }}</h1>
+    <p class="mb-3"><b>Security Amount (Redundable) </b> : {{product.security}}</p>
 
-    <p class="mb-6"><span class="tag is-dark">{{ product.vendor.name }}</span></p>
+    <p class="mb-3"><span class="tag is-dark">{{ product.vendor.name }}</span></p>
+    <p class="mb-5">
+        {% for tag in product.tags.all %}
+            <span class="mr-3 tag">{{ tag }}</span>
+        {% endfor %}
+    </p>
 
     <p>{{ product.description }}</p>
 
