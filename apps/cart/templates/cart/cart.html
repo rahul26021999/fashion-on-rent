@@ -12,7 +12,7 @@
                     <thead>
                         <th></th>
                         <th>Product</th>
-                        <th>Quantity</th>
+                        <th>Security</th>
                         <th>Price</th>
                         <th></th>
                     </thead>
@@ -28,14 +28,9 @@
                                 <td>
                                     <a href="{% url 'product' item.product.category.slug item.product.slug %}">{{ item.product.title }}</a>
                                 </td>
-                                <td>
-                                    {{ item.quantity }}
-
-                                    <a href="?change_quantity={{ item.id }}&quantity=-1">-</a>
-                                    <a href="?change_quantity={{ item.id }}&quantity=1">+</a>
-                                </td>
-                                <td>${{ item.total_price }}</td>
-                                <td><a href="?remove_from_cart={{ item.id }}" class="delete">Remove</a></td>
+                                <td>${{ item.security }}</td>
+                                <td>${{ item.price }}</td>
+                                <td><a href="/cart/remove?id={{ item.id }}" class="delete">Remove</a></td>
                             </tr>
                         {% endfor %}
                     </tbody>
@@ -44,8 +39,14 @@
                         <tr>
                             <td></td>
                             <td><strong>Total cost</strong></td>
-                            <td><strong>{{ cart|length}}</strong></td>
+
                             <td colspan="2"><strong>${{ cart.get_total_cost }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><strong>Total Security (Refundable)</strong></td>
+
+                            <td colspan="2"><strong>${{ cart.get_total_security }}</strong></td>
                         </tr>
                     </tfoot>
                 </table>
@@ -54,7 +55,7 @@
 
         <h2 class="subtitle">Contact information</h2>
 
-        <form method="post" action="." id="payment-form">
+        <form method="post" action="/cart/go" id="payment-form">
             {% csrf_token %}    
 
             {% if form.non_field_errors %}
