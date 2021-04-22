@@ -8,6 +8,7 @@
 
         <strong>My balance: </strong>${{ vendor.get_balance }}<br>
         <strong>My paid amount: </strong>${{ vendor.get_paid_amount }}
+        {% comment %} <strong>My security deposites: </strong>${{ vendor.get_security_deposits }} {% endcomment %}
 
         <hr>
 
@@ -55,6 +56,7 @@
                         </div>
     
                         <div class="column is-12">
+                            <p class="mb-3"><b>Customer Information</b></p>
                             <b>Name:</b> {{ order.first_name }} {{ order.last_name }}<br>
                             <b>Address:</b> {{ order.address }}<br>
                             <b>Zip and place:</b> {{ order.zipcode }} {{ order.place }}<br>
@@ -66,7 +68,6 @@
                                     <tr>
                                         <th>Title</th>
                                         <th>Price</th>
-                                        <th>Quantity</th>
                                         <th>Paid</th>
                                         <th>Total</th>
                                     </tr>
@@ -78,7 +79,6 @@
                                             <tr>
                                                 <td>{{ item.product.title }}</td>
                                                 <td>${{ item.product.price }}</td>
-                                                <td>{{ item.quantity }}</td>
                                                 <td>{{ item.vendor_paid|yesno:"Yes,No" }}</td>
                                                 <td>${{ item.get_total_price }}</td>
                                             </tr>
@@ -90,6 +90,58 @@
                     </div>
                 </div>
             {% endfor %}
+        {% else %}
+            <p>No orders yet</p>
+        {% endif %}
+    </div>
+    <div class="box">
+        <h2 class="is-size-3 mb-4">My Order</h2>
+    
+        {% if myorders %}
+            {% for order in myorders %}
+                <div class="has-background-warning mb-2 p-4">
+                    <div class="columns is-multiline">
+                        <div class="column is-6">
+                            <h3 class="is-size-4">#{{ order.id }} - {{ order.first_name }} {{ order.last_name }}</h3>
+                        </div>
+    
+                        <div class="column is-12">
+                            <p class="mb-3"><b>My Billing Information</b></p>
+                            <b>Name:</b> {{ order.first_name }} {{ order.last_name }}<br>
+                            <b>Address:</b> {{ order.address }}<br>
+                            <b>Zip and place:</b> {{ order.zipcode }} {{ order.place }}<br>
+                            <b>E-mail:</b> {{ order.email }}<br>
+                            <b>Phone:</b> {{ order.phone }}
+    
+                            <table class="table is-fullwidth mt-4">
+                                <thead>
+                                    <tr>
+                                        <th>Vendor</th>
+                                        <th>Title</th>
+                                        <th>Price</th>
+                                        <th>Security</th>
+                                        <th>Redunded</th>
+                                    </tr>
+                                </thead>
+    
+                                <tbody>
+                                    {% for item in order.items.all %}
+                                        <tr>
+                                            <td>{{ item.product.vendor.name }}</td>
+                                            <td>{{ item.product.title }}</td>
+                                            <td>${{ item.product.price }}</td>
+                                            <td>${{ item.product.security }}</td>
+                                            <td>{{ item.security_refunded }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No orders yet</p>
         {% endif %}
     </div>
 {% endblock %}
