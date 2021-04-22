@@ -31,6 +31,7 @@ def vendor_admin(request):
     vendor = request.user.vendor
     products = vendor.products.all()
     orders = vendor.orders.all()
+    myOrders = vendor.buyers.all()
 
     for order in orders:
         order.vendor_amount = 0
@@ -45,7 +46,7 @@ def vendor_admin(request):
                     order.vendor_amount += item.get_total_price()
                     order.fully_paid = False
 
-    return render(request, 'vendor/vendor_admin.html', {'vendor': vendor, 'products': products, 'orders': orders})
+    return render(request, 'vendor/vendor_admin.html', {'vendor': vendor, 'products': products, 'orders': orders ,'myorders':myOrders})
 
 @login_required
 def add_product(request):

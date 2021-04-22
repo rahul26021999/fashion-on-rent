@@ -27,7 +27,8 @@ class OrderItem(models.Model):
     product = models.ForeignKey(Product, related_name='items', on_delete=models.CASCADE)
     vendor = models.ForeignKey(Vendor, related_name='items', on_delete=models.CASCADE)
     vendor_paid = models.BooleanField(default=False)
-    price = models.DecimalField(max_digits=8, decimal_places=2)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    security_refunded = models.BooleanField(default=False)
     
     def __str__(self):
         return '%s' % self.id
