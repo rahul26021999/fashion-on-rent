@@ -28,21 +28,18 @@
             <div class="notification is-success is-toast">{{ message }}</div>
         {% endfor %}
     {% endif %}
-
-    <form method="post" action=".">
-        {% csrf_token %}
-
-        <div class="field has-addons">
+    
+    {% ifequal request.user.id product.vendor.created_by.id %}
+        <a href="" class="button is-dark is-uppercase" >Edit Product </a>
+    {% else %}
+        <form method="post" action=".">
+            {% csrf_token %}
             <div class="control">
-                <input type="number" name="quantity" value="1" class="input" min="1">
+                <input type="submit" name="addToCart" class="button is-dark is-uppercase" value="Add To Cart"/>
             </div>
-
-            <div class="control">
-                <button class="button is-dark is-uppercase">Add to cart</button>
-            </div>
-        </div>
-    </form>
-
+        </form>    
+    {% endifequal %}
+    
     {% if similar_products %}
         <hr>
 
