@@ -66,6 +66,26 @@ def add_product(request):
     return render(request, 'vendor/add_product.html', {'form': form})
 
 @login_required
+def edit_product(request, pk):
+    product = get_object_or_404(Product,id=pk)
+    if request.method == "POST":
+        form = ProductForm(request.POST , instance = product)
+        if form.is_valid():
+            product = form.save(commit=False)
+            product.vendor = request.user.vendor
+            product.slug = slugify(product.title)
+            product.save()
+
+            return redirect('vendor_admin',pk=product.pk)
+    else:
+        form = ProductForm(instance = product)
+        ###edit product.html
+    return render(request, 'vendor/add_product.html', {'form': form})
+
+    
+
+
+@login_required
 def edit_vendor(request):
     vendor = request.user.vendor
 

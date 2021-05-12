@@ -3,6 +3,7 @@
 {% block title %}Renter Dashboard | {% endblock %}
 
 {% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <div class="box">
         <h1 class="title">My Account - {{ vendor.name }}</h1>
 
@@ -27,6 +28,7 @@
                     <tr>
                         <th>Title</th>
                         <th>Price</th>
+                        <th></th>
                     </tr>
                 </thead>
 
@@ -35,6 +37,8 @@
                         <tr>
                             <td><a href="{% url 'product' product.category.slug product.slug %}">{{ product.title }}</a></td>
                             <td>${{ product.price }}</td>
+                            <!--change-->
+                            <td><a href="{% url 'edit_product' product.id %}" class="fa fa-edit">Edit</a></td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -120,7 +124,7 @@
                                         <th>Title</th>
                                         <th>Price</th>
                                         <th>Security</th>
-                                        <th>Redunded</th>
+                                        <th>Refunded</th>
                                     </tr>
                                 </thead>
     
