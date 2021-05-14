@@ -76,7 +76,7 @@ def edit_product(request, pk):
             product.slug = slugify(product.title)
             product.save()
 
-            return redirect('vendor_admin',pk=product.pk)
+            return redirect('vendor_admin')
     else:
         form = ProductForm(instance = product)
         ###edit product.html
