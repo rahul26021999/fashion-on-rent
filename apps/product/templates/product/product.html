@@ -12,6 +12,7 @@
     <h1 class="title">{{ product.title }}, ${{ product.price }}</h1>
     <p class="mb-3"><b>Security Amount (Refundable) </b> : {{product.security}}</p>
 
+    <br>
     <p class="mb-3"><span class="tag is-dark">{{ product.vendor.name }}</span></p>
     <p class="mb-5">
         {% for tag in product.tags.all %}
